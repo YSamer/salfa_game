@@ -22,42 +22,59 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: app.players.length,
-                    itemBuilder: (context, i) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: MainTextField(
-                              controller:
-                                  TextEditingController(text: app.players[i]),
-                              onChanged: (v) {
-                                app.updatePlayer(app.players[i], v.trim());
-                              },
+                  child: app.players.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: app.players.length,
+                          itemBuilder: (context, i) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: MainTextField(
+                                    controller: TextEditingController(
+                                        text: app.players[i]),
+                                    onChanged: (v) {
+                                      app.updatePlayer(
+                                          app.players[i], v.trim());
+                                    },
+                                  ),
+                                ),
+                                12.wSize,
+                                InkWell(
+                                  onTap: () {
+                                    app.removePlayer(app.players[i]);
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.amber,
+                                    ),
+                                    padding: const EdgeInsets.all(4),
+                                    child: const Icon(
+                                      Icons.remove,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          12.wSize,
-                          InkWell(
-                            onTap: () {
-                              app.removePlayer(app.players[i]);
-                            },
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.amber,
-                              ),
-                              padding: const EdgeInsets.all(4),
-                              child: const Icon(
-                                Icons.remove,
-                                size: 32,
+                        )
+                      : const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: MainText(
+                                'برجاء إضافة لاعبين',
+                                textAlign: TextAlign.center,
+                                color: Colors.grey,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                          ],
+                        ),
                 ),
                 Row(
                   children: [
@@ -65,7 +82,8 @@ class HomePage extends StatelessWidget {
                       child: MainButton(
                         onPressed: () {
                           if (app.players.length < 3) {
-                            showSnackbar('لا يمكن الدخول للعبة بدون لاعبين',
+                            showSnackbar(
+                                'لا يمكن الدخول للعبة بأقل من ثلاثة لاعبين ',
                                 error: true);
                             return;
                           }
@@ -74,6 +92,11 @@ class HomePage extends StatelessWidget {
                               .isNotEmpty) {
                             showSnackbar('لا يمكن أن يكون الاسم فارغ!',
                                 error: true);
+                            return;
+                          }
+                          if (app.players.length >
+                              app.players.map((e) => e.trim()).toSet().length) {
+                            showSnackbar('هناك أسماء مكررة', error: true);
                             return;
                           }
                           AppRoutes.routeTo(context, const StepOnePlayer());

@@ -23,39 +23,43 @@ class StepTwoPlayer extends StatelessWidget {
             });
           }
           return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
+            body: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: MainText(
-                          '${game.players[game.step2Player1].name} اسأل ${game.players[game.step2Player2].name}',
-                          textAlign: TextAlign.center,
-                          color: Colors.amber,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: MainText(
+                              '${game.players[game.step2Player1].name} اسأل ${game.players[game.step2Player2].name}',
+                              textAlign: TextAlign.center,
+                              color: Colors.amber,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      22.hSize,
+                      MainButton(
+                        onPressed: () {
+                          game.nextStep2Player();
+                        },
+                        child: const Center(
+                          child: MainText.buttonText(
+                            'التالي',
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  22.hSize,
-                  MainButton(
-                    onPressed: () {
-                      game.nextStep2Player();
-                    },
-                    child: const Center(
-                      child: MainText.buttonText(
-                        'التالي',
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           );

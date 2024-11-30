@@ -23,52 +23,56 @@ class StepThreePlayer extends StatelessWidget {
             });
           }
           return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
+            body: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: MainText(
-                          '${game.players[game.step3Player].name} اختر من تظن أنه برا السالفة ',
-                          textAlign: TextAlign.center,
-                          color: Colors.amber,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: MainText(
+                              '${game.players[game.step3Player].name} اختر من تظن أنه برا السالفة ',
+                              textAlign: TextAlign.center,
+                              color: Colors.amber,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  22.hSize,
-                  Column(
-                    children: List.generate(
-                      game
-                          .otherPlayers(game.players[game.step3Player].name)
-                          .length,
-                      (i) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 22, vertical: 4),
-                        child: MainButton(
-                          onPressed: () {
-                            game.voteStep3Player(game.otherPlayers(
-                                game.players[game.step3Player].name)[i]);
-                          },
-                          child: Center(
-                            child: MainText.buttonText(
-                              game.otherPlayers(
-                                  game.players[game.step3Player].name)[i],
+                      22.hSize,
+                      Column(
+                        children: List.generate(
+                          game
+                              .otherPlayers(game.players[game.step3Player].name)
+                              .length,
+                          (i) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 22, vertical: 4),
+                            child: MainButton(
+                              onPressed: () {
+                                game.voteStep3Player(game.otherPlayers(
+                                    game.players[game.step3Player].name)[i]);
+                              },
+                              child: Center(
+                                child: MainText.buttonText(
+                                  game.otherPlayers(
+                                      game.players[game.step3Player].name)[i],
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           );

@@ -18,43 +18,48 @@ class StepFourPlayer extends StatelessWidget {
         builder: (context, game, child) {
           if (game.step4Done) {
             WidgetsBinding.instance.addPostFrameCallback((callback) {
-              AppRoutes.routeRemoveTo(context, StepFivePlayer(gameProvider: game));
+              AppRoutes.routeRemoveTo(
+                  context, StepFivePlayer(gameProvider: game));
             });
           }
           return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
+            body: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: MainText(
-                          'اللي برا السالفة هو ${game.notSalfaPlayer}',
-                          textAlign: TextAlign.center,
-                          color: Colors.amber,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: MainText(
+                              'اللي برا السالفة هو ${game.notSalfaPlayer}',
+                              textAlign: TextAlign.center,
+                              color: Colors.amber,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      22.hSize,
+                      MainButton(
+                        onPressed: () {
+                          game.showNotSalfaPlayer();
+                        },
+                        child: const Center(
+                          child: MainText.buttonText(
+                            'التالي',
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  22.hSize,
-                  MainButton(
-                    onPressed: () {
-                      game.showNotSalfaPlayer();
-                    },
-                    child: const Center(
-                      child: MainText.buttonText(
-                        'التالي',
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           );

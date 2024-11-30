@@ -60,6 +60,7 @@ class GameProvider extends ChangeNotifier {
   late int step2Player2;
   bool step2Done = false;
   void nextStep2Player() {
+    step1Done = false;
     step2Player1++;
     if (step2Player1 >= players.length) {
       step2Player1--;

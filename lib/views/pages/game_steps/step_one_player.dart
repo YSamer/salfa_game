@@ -22,42 +22,48 @@ class StepOnePlayer extends StatelessWidget {
             });
           }
           return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      MainText(
-                        game.show
-                            ? game.allPlayers[game.step1Player] ==
-                                    game.notSalfaPlayer
-                                ? 'أنت برا السالفة'
-                                : 'أنت داخل السالفة \n السالفة هي ${game.salfa}'
-                            : game.allPlayers[game.step1Player],
-                        textAlign: TextAlign.center,
-                        color: Colors.amber,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ],
-                  ),
-                  22.hSize,
-                  MainButton(
-                    onPressed: () {
-                      game.nextStep1Player();
-                    },
-                    child: const Center(
-                      child: MainText.buttonText(
-                        'التالي',
-                      ),
-                    ),
-                  ),
-                ],
+            body: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(12),
+                  child: game.step1Done
+                      ? const SizedBox()
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                MainText(
+                                  game.show
+                                      ? game.allPlayers[game.step1Player] ==
+                                              game.notSalfaPlayer
+                                          ? 'أنت برا السالفة'
+                                          : 'أنت داخل السالفة \n السالفة هي ${game.salfa}'
+                                      : game.allPlayers[game.step1Player],
+                                  textAlign: TextAlign.center,
+                                  color: Colors.amber,
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                            22.hSize,
+                            MainButton(
+                              onPressed: () {
+                                game.nextStep1Player();
+                              },
+                              child: const Center(
+                                child: MainText.buttonText(
+                                  'التالي',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
               ),
             ),
           );
